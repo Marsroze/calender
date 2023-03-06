@@ -2,7 +2,7 @@ const std = @import("std");
 const expect = std.testing.expect;
 
 // Enum to store weekdays
-const Day = enum(u4) {
+const Day = enum(u3) {
     sun = 0,
     mon = 1,
     tue = 2,
@@ -12,7 +12,7 @@ const Day = enum(u4) {
     sat = 6,
 
     // Determines the space padding in the display function
-    pub fn value(self: @This()) u4 {
+    pub fn value(self: @This()) u3 {
         return @enumToInt(self);
     }
 };
@@ -42,7 +42,7 @@ pub const Calender = struct {
     }
 
     // Zeller's Algorithm
-    fn getZeller(self: @This()) u8 {
+    fn getZeller(self: @This()) u3 {
         const d: i32 = 1;
         var m: i32 = self.month;
         var y: i32 = self.year;
@@ -59,7 +59,7 @@ pub const Calender = struct {
             + @divFloor(y, 4) - @divFloor(y, 100) 
             + @divFloor(y, 400)), 7);
         // zig fmt: on
-        return @intCast(u8, z);
+        return @intCast(u3, z);
     }
 
     // Returns the weekday from corresponding zeller number
