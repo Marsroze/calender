@@ -22,10 +22,16 @@ pub fn main() !void {
     if (res.args.year) |y| {
         if (res.args.month) |m| {
             var cal = Calender.init(@intCast(u4, m), @intCast(u16, y));
-            try cal.display();
+            cal.display() catch |err| {
+                std.debug.print("Failed to print the calender for the month!", .{});
+                return err;
+            };
         } else {
             var cal = Calender.init(0, @intCast(u16, y));
-            try cal.wholeyear();
+            cal.wholeyear() catch |err| {
+                std.debug.print("Failed to print the calender for the year!", .{});
+                return err;
+            };
         }
     } else {
         return clap.help(std.io.getStdErr().writer(), clap.Help, &params, .{});
