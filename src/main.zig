@@ -22,6 +22,7 @@ pub fn main() !void {
     if (res.args.year) |y| {
         if (res.args.month) |m| {
             var cal = Calender.init(@intCast(u4, m), @intCast(u16, y));
+            try std.io.getStdOut().writer().print("+{s:-<35}+\n|\x1b[34;1m{d: ^35}\x1b[0m|\n", .{ "-", cal.year });
             cal.display() catch |err| {
                 std.debug.print("Failed to print the calender for the month!", .{});
                 return err;
